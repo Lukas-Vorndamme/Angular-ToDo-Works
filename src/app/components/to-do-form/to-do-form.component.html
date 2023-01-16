@@ -1,0 +1,13 @@
+<form>
+<h1>ToDo hinzufügen:</h1>
+<label for="beschreibung" class = "form-label"> Beschreibung: </label>
+<input id="beschreibung"  class = "form-control" name = "description" placeholder="Hier die Beschreibung eingeben!" [(ngModel)] = "todo.description" type="text">
+
+
+<label for="Termin" class = "form-label"> Termin: </label>
+<input id="Termin"  class = "form-control" name = "description" placeholder="tt.mm.jjjj" [(ngModel)] = "todo.deadline" type="date" >
+<BR>
+<button type="submit" class="btn btn-primary" (click)="save()" >Absenden </button>
+
+
+</form>
