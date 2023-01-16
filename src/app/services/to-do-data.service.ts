@@ -12,10 +12,15 @@ export class ToDoDataService {
     this.todos.push(new ToDo('Hinterm Bahnhof prügeln', true));
     this.todos.push(new ToDo('Essen', false, '18.02.2023'));
     this.todos.push(new ToDo('Geschenke kaufen', true, '14.12.2022'));
-  }
+  };
 saveTodo(todo : ToDo){
 
   this.todos.push(todo);
 
-}
+};
+
+toggleToDo(todo : ToDo){
+todo.done = !todo.done;
+this.todos = this.todos.filter(t => t = t)
+};
 }
