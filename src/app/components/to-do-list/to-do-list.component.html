@@ -7,7 +7,7 @@
 </thead>
 
 <tbody>
-  <tr *ngFor="let t of todos | sortDone: todos" (click) = toggle(t) [class.toDoDone] = "t.done">
+  <tr class="table-primary" *ngFor="let t of todos | sortDone: todos" (click) = toggle(t) [class.toDoDone] = "t.done">
     <td>
       {{t.description}}
     </td>
