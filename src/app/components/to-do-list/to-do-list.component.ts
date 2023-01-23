@@ -17,4 +17,8 @@ export class ToDoListComponent implements OnInit {
   get todos(): ToDo[] {
     return this.ToDoDataService.todos;
   }
+
+  toggle(todo : ToDo){
+    this.ToDoDataService.toggleToDo(todo);
+  }
 }
