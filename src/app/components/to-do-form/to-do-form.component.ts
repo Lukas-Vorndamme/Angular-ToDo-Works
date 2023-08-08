@@ -16,8 +16,21 @@ export class ToDoFormComponent implements OnInit {
 
   ngOnInit() {}
 
+  speicher: string[];
+
   save() {
     this.ToDoDataServices.saveTodo(this.todo);
+
+    var speicher = JSON.stringify([
+      new String(this.todo.description),
+      new Boolean(this.todo.done),
+      new String(this.todo.deadline),
+    ]);
     this.todo = new ToDo(null, false, null);
+
+    console.log(speicher);
   }
+
+  //wiederherstellen(){
+  //this.ToDoDataServices.saveTodo(JSON.parse(this.todo.description ,this.todo.done, this.todo.deadline}
 }
