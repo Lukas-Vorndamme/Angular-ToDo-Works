@@ -18,5 +18,6 @@ export class ToDoFormComponent implements OnInit {
 
   save() {
     this.ToDoDataServices.saveTodo(this.todo);
+    this.todo = new ToDo(null, false, null);
   }
 }
