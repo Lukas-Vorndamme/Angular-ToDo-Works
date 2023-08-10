@@ -14,10 +14,9 @@ export class ToDoFormComponent implements OnInit {
     this.todo = new ToDo(null, false, null);
   }
 
-  ngOnInit() {}
-
-
-
+  ngOnInit() {
+    this.alleswiederherstellen();
+  }
 
   save() {
     this.ToDoDataServices.saveTodo(this.todo);
@@ -25,11 +24,10 @@ export class ToDoFormComponent implements OnInit {
     const data = {
       beschreibung: this.todo.description,
       fertig: this.todo.done,
-      deadline: this.todo.deadline
+      deadline: this.todo.deadline,
     };
-    localStorage.setItem('Todo', JSON.stringify(data));
 
-    const storedData = localStorage.getItem('Todo');
+    let storedData = localStorage.getItem('Todos');
     let dataArray = storedData ? JSON.parse(storedData) : [];
 
     if (!Array.isArray(dataArray)) {
@@ -37,44 +35,31 @@ export class ToDoFormComponent implements OnInit {
     }
 
     dataArray.push(data);
-    
-    localStorage.setItem('Todo', JSON.stringify(dataArray));
-    
-    console.log(localStorage.getItem('Todo'));
+
+    localStorage.setItem('Todos', JSON.stringify(dataArray));
+
+    //console.log(localStorage.getItem('Todos'));
 
     this.todo = new ToDo(null, false, null);
   }
-  
 
-    wiederherstellen() {
+  alleswiederherstellen() {
+    const storedData = localStorage.getItem('Todos');
 
-      const storedData = localStorage.getItem('Todo');
-      const tableBody = document.querySelector('.table tbody');
-      
-      if (storedData) {
-        const dataArray = JSON.parse(storedData);
-      
-        for (const data of dataArray) {
-          const row = document.createElement('tr');
-          row.className = "table-primary";
-      
-          const descriptionCell = document.createElement('td');
-          descriptionCell.textContent = data.beschreibung;
-          row.appendChild(descriptionCell);
-      
-
-          const deadlineCell = document.createElement('td');
-          deadlineCell.textContent = data.deadline;
-          row.appendChild(deadlineCell);
-      
-          tableBody.appendChild(row);
-
-          localStorage.removeItem('Todo')
-        }
-      } else {
-        console.log("No stored data found.");
+    if (storedData) {
+      const dataArray = JSON.parse(storedData);
+      for (let index = 0; index < dataArray.length; index++) {
+       
+        this.ToDoDataServices.saveTodo(new ToDo(dataArray[index].beschreibung, dataArray[index].fertig, dataArray[index].deadline));
+       
       }
-    }  
+      console.log('Wiederherstellung Erfolgreich');
+    }
+    else(console.log('Es wurden keine Daten zum Wiederherstellen gefunden'))
+  }
+ 
+  Testloeschen() {
+    localStorage.removeItem('Todos');
+    console.log("localStorage wurde gelöscht")
+  }
 }
-      
-    

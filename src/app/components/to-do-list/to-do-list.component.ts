@@ -21,4 +21,9 @@ export class ToDoListComponent implements OnInit {
   toggle(todo : ToDo){
     this.ToDoDataService.toggleToDo(todo);
   }
+
+  loeschen() {
+    
+  }
+
 }
