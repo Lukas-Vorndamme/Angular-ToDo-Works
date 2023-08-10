@@ -48,24 +48,33 @@ export class ToDoFormComponent implements OnInit {
 
     wiederherstellen() {
 
-      const storedData = localStorage.getItem('Todo')
-
-      if(storedData) {
+      const storedData = localStorage.getItem('Todo');
+      const tableBody = document.querySelector('.table tbody');
+      
+      if (storedData) {
         const dataArray = JSON.parse(storedData);
-        
+      
         for (const data of dataArray) {
-          console.log("Description:", data.description);
-          console.log("Done:", data.done);
-          console.log("Deadline", data.deadline);
+          const row = document.createElement('tr');
+          row.className = "table-primary";
+      
+          const descriptionCell = document.createElement('td');
+          descriptionCell.textContent = data.beschreibung;
+          row.appendChild(descriptionCell);
+      
+
+          const deadlineCell = document.createElement('td');
+          deadlineCell.textContent = data.deadline;
+          row.appendChild(deadlineCell);
+      
+          tableBody.appendChild(row);
+
+          localStorage.removeItem('Todo')
         }
-        localStorage.removeItem('Todo')
+      } else {
+        console.log("No stored data found.");
       }
-      else{
-        console.log("Keine Gespeicherten Daten gefunden.")
-      }
-    }
+    }  
 }
-      //this.ToDoDataServices.todos.push()
-      //console.log(localStorage.getItem('Todo'))
-      //localStorage.removeItem('Todo')
+      
     
