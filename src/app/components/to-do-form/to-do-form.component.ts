@@ -16,21 +16,56 @@ export class ToDoFormComponent implements OnInit {
 
   ngOnInit() {}
 
-  speicher: string[];
+
+
 
   save() {
     this.ToDoDataServices.saveTodo(this.todo);
 
-    var speicher = JSON.stringify([
-      new String(this.todo.description),
-      new Boolean(this.todo.done),
-      new String(this.todo.deadline),
-    ]);
+    const data = {
+      beschreibung: this.todo.description,
+      fertig: this.todo.done,
+      deadline: this.todo.deadline
+    };
+    localStorage.setItem('Todo', JSON.stringify(data));
+
+    const storedData = localStorage.getItem('Todo');
+    let dataArray = storedData ? JSON.parse(storedData) : [];
+
+    if (!Array.isArray(dataArray)) {
+      dataArray = [];
+    }
+
+    dataArray.push(data);
+    
+    localStorage.setItem('Todo', JSON.stringify(dataArray));
+    
+    console.log(localStorage.getItem('Todo'));
+
     this.todo = new ToDo(null, false, null);
-
-    console.log(speicher);
   }
+  
 
-  //wiederherstellen(){
-  //this.ToDoDataServices.saveTodo(JSON.parse(this.todo.description ,this.todo.done, this.todo.deadline}
+    wiederherstellen() {
+
+      const storedData = localStorage.getItem('Todo')
+
+      if(storedData) {
+        const dataArray = JSON.parse(storedData);
+        
+        for (const data of dataArray) {
+          console.log("Description:", data.description);
+          console.log("Done:", data.done);
+          console.log("Deadline", data.deadline);
+        }
+        localStorage.removeItem('Todo')
+      }
+      else{
+        console.log("Keine Gespeicherten Daten gefunden.")
+      }
+    }
 }
+      //this.ToDoDataServices.todos.push()
+      //console.log(localStorage.getItem('Todo'))
+      //localStorage.removeItem('Todo')
+    
